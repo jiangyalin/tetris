@@ -31,7 +31,7 @@ class Original {
 				this.painting(blackArr, this.newBlock.isEnd)
 			}
 			// }
-		}, 1000 * 5)
+		}, 1000 * 1)
 	}
 
 	// 创建背景
@@ -160,6 +160,17 @@ class Original {
 		const blackArr = this.blockToBlack(this.newBlock)
 		this.painting(blackArr, this.newBlock.isEnd)
 	}
+
+	// 移动方块
+	move = (type = 'left') => {
+		const map = {
+			left: -1,
+			right: 1
+		}
+		this.newBlock.coordinate.x = this.newBlock.coordinate.x + (map[type] || 0)
+		const blackArr = this.blockToBlack(this.newBlock)
+		this.painting(blackArr, this.newBlock.isEnd)
+	}
 }
 
 const original = new Original(document.querySelector('.j-box'))
@@ -169,5 +180,7 @@ console.log('original', original)
 document.onkeydown = event => {
 	console.log('event', event)
 	if (event.key === 'ArrowUp') original.rotate()
+	if (event.key === 'ArrowLeft') original.move('left')
+	if (event.key === 'ArrowRight') original.move('right')
 	event.preventDefault()
 }
